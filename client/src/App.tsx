@@ -24,7 +24,7 @@ const App = () => {
       postcode: number
       state: string
     }
-    image: {
+    picture: {
       medium: string
     }
     name: {
@@ -43,62 +43,65 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container">
+    <>
       {/* Header */}
-      <div className="row">
-        <div className="col-lg-12">
-          <h1 className="page-header center" style={{ textAlign: 'center' }}>Profiles</h1>
-        </div>
-        <input
-          type="text"
-          placeholder='Search...'
-          onChange={(e) => { setSearchField(e.target.value) }}
-        />
+      <div className='container'>
+        <section>
+          <form>
+            <h1 className='center'>Profiles</h1>
+            <input
+              type="text"
+              placeholder='Search...'
+              onChange={(e) => { setSearchField(e.target.value) }}
+            />
+          </form>
+        </section>
       </div>
-      <div className="container">
-
-
-
+      <>
         {
           employees.filter(user => {
             return user.name.first.toLocaleLowerCase().includes(searchField.toLowerCase())
           })
             .sort((a, b) => a.name.first.localeCompare(b.name.first))
             .slice(0, 6)
-            .map((employee, index) => {
+            .map((employee) => {
               return (
-                <div key={'employees' + index} className="row">
+                <div key={employee.login.uuid} >
                   {/*Employee cards*/}
-                  <section className="cards cards">
-                    <div className="col-sm-3" style={{ marginBottom: '40px' }}>
-                      {viewEmployee != "" ?
+                  <section className='container'>
+                    <div className='center'>
+                      {viewEmployee !== "" ?
                         <div>
                           {
 
-                            viewEmployee == employee.login.uuid ?
-                              <article className="card" style={{ textAlign: "center" }} onClick={(e) => setViewEmployee("")}>
+                            viewEmployee === employee.login.uuid ?
+                              <article className='card' onClick={(e) => setViewEmployee("")}>
                                 <Details
                                   cell={employee.cell}
                                   dob={employee.dob}
                                   email={employee.email}
-                                  image={employee.image.medium}
+                                  picture={employee.picture.medium}
                                   firstName={employee.name.first}
                                   lastName={employee.name.last}
                                   location={employee.location}
                                 />
+
                               </article>
+
                               : <React.Fragment />
 
                           }
                         </div>
 
-                        : <article className="card" style={{ textAlign: 'center' }} onClick={(e) => setViewEmployee( employee.login.uuid )}>
+                        : <article onClick={(e) => setViewEmployee(employee.login.uuid)}>
+                          <div>
                           <EmployeeSummary
                             email={employee.email}
-                            image={employee.image.medium}
+                            picture={employee.picture.medium}
                             firstName={employee.name.first}
                             lastName={employee.name.last}
                           />
+                          </div>
                         </article>
 
                       }
@@ -107,8 +110,8 @@ const App = () => {
                 </div>
               )
             })}
-      </div>
-    </div>
+      </>
+    </>
   );
 }
 
