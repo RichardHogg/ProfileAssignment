@@ -1,4 +1,3 @@
-import React from 'react'
 
 const EmployeeSummary = (
     props: {
@@ -10,12 +9,11 @@ const EmployeeSummary = (
 
 ) => {
     return (
-        <div>
-            <img src={props.picture} alt='' />
+        <>
+            <img className='card img' src={props.picture} alt='' />
             <h1>{props.firstName + ' ' + props.lastName}</h1>
             <p>{props.email}</p>
-        </div>
-
+        </>
 
     )
 }

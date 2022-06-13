@@ -1,4 +1,3 @@
-import React from 'react'
 
 const Details = (
     props: {
@@ -23,7 +22,7 @@ const Details = (
 ) => {
     return (
         
-            <>
+            <div>
                 <img className='card img' src={props.picture} alt=''/>
                 <h1>{props.firstName + ' ' + props.lastName}</h1>
                 <p>{'Age: ' + props.dob.age}<br />
@@ -36,7 +35,7 @@ const Details = (
                     {props.location.postcode}<br />
                     {props.location.country}<br />
                 </p>
-            </>
+            </div>
 
     )
 }

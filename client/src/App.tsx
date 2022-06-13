@@ -57,7 +57,7 @@ const App = () => {
           </form>
         </section>
       </div>
-      <>
+      <div className='cards container'>
         {
           employees.filter(user => {
             return user.name.first.toLocaleLowerCase().includes(searchField.toLowerCase())
@@ -68,14 +68,14 @@ const App = () => {
               return (
                 <div key={employee.login.uuid} >
                   {/*Employee cards*/}
-                  <section className='container'>
-                    <div className='center'>
-                      {viewEmployee !== "" ?
-                        <div>
-                          {
 
-                            viewEmployee === employee.login.uuid ?
-                              <article className='card' onClick={(e) => setViewEmployee("")}>
+
+                  {viewEmployee !== "" ?
+                    <>
+                      {
+                        viewEmployee === employee.login.uuid ?
+                          <article onClick={(e) => setViewEmployee("")}>
+                            <div style={{ textAlign:'center'}}>
                                 <Details
                                   cell={employee.cell}
                                   dob={employee.dob}
@@ -85,32 +85,28 @@ const App = () => {
                                   lastName={employee.name.last}
                                   location={employee.location}
                                 />
+                             </div>
+                          </article>
 
-                              </article>
-
-                              : <React.Fragment />
-
-                          }
-                        </div>
-
-                        : <article onClick={(e) => setViewEmployee(employee.login.uuid)}>
-                          <div>
-                          <EmployeeSummary
-                            email={employee.email}
-                            picture={employee.picture.medium}
-                            firstName={employee.name.first}
-                            lastName={employee.name.last}
-                          />
-                          </div>
-                        </article>
+                          : <React.Fragment />
 
                       }
-                    </div>
-                  </section>
+                    </>
+
+                    : <article onClick={(e) => setViewEmployee(employee.login.uuid)}>
+                      <EmployeeSummary
+                        email={employee.email}
+                        picture={employee.picture.medium}
+                        firstName={employee.name.first}
+                        lastName={employee.name.last}
+                      />
+                    </article>
+
+                  }
                 </div>
               )
             })}
-      </>
+      </div>
     </>
   );
 }
